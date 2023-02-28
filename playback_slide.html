@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>play button slide</title>
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/xeicon.min.css">
+  <link rel="stylesheet" href="css/swiper.css"><!-- // swiper.css -->
+  <link rel="stylesheet" href="css/play_button_slide.css">
+
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/swiper.min.js"></script><!-- // swiper.js -->
+
+</head>
+<body>
+  <div class="slide_wrap">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide item" style="background-color: #eee;"></div>
+        <div class="swiper-slide item" style="background-color: #333;"></div>
+      </div>
+      <!-- // swiper-wrapper -->
+      <div class="swiper-button_wrap">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <!-- // swiper-button_wrap -->
+      <div class="swiper-pagination_wrap prd_less">
+        <!-- TODO, 사용중인 제품 있을 때 prd_less 클래스 제거 -->
+        <div class="swiper-pagination"></div>
+        <button class="play_btn"></button>
+      </div>
+      <!-- // swiper-pagination_wrap -->
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      openPlaybackBanner();
+    });
+    function openPlaybackBanner() {
+      playback_slide();
+    };
+    function playback_slide() {
+      var playback_slide = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        effect: 'fade',
+        loop: true,
+        speed: 1000,
+        freemode: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'progressbar',
+        }
+      });
+      $(document).on('click', '.play_btn', function () {
+        if (!$(this).hasClass("pause")) {
+          $(this).addClass("pause");
+          playback_slide.autoplay.stop();
+        } else {
+          $(this).removeClass("pause");
+          playback_slide.autoplay.start();
+        }
+      });
+    };
+  </script>
+</body>
+</html>
